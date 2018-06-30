@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='translang'>
+    <view class='from'>
+      <view class="section">
+        <picker bindchange="bindFromPickerChange" value="{{fromIndex}}" range="{{langName}}">
+          <view wx:if="{{langName}}"> {{langName[fromIndex]}} </view>
+          <view wx:else> 中文 </view>
+        </picker>
+      </view>
+    </view>
+    <view class='switch'>
+      <image src='/static/images/ic_switch.png'></image>
+    </view>
+    <view class='to'>
+      <view class="section">
+        <picker bindchange="bindToPickerChange" value="{{toIndex}}" range="{{langName}}">
+          <view wx:if="{{langName}}"> {{langName[toIndex]}} </view>
+          <view wx:else> 英文 </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class='from-data'>
+    <view class="from-data-input">
+      <textarea bindinput="bindTextAreaBlur" value="{{fromData}}" maxlength='-1' placeholder="请输入文字" />
+    </view>
+    <view class='cancle'>
+      <image src='/static/images/ic_cancle.png' bindtap='cancle'></image>
+    </view>
+  </view>
+  <view class='translate'>
+    <button bindtap='translate' disabled="{{fromData == '' ? true : flase}}">翻译</button>
+  </view>
+  <view class='to-data' wx:if="{{isShowToData}}">
+    <view class='to-data-result'>
+      {{toData}}
+    </view>
+  </view>
+  <view class='detail' wx:if="{{isShowToData}}">
+      <text class='explain'>词典释义</text>
+      <view calss='result' wx:for='{{detailData}}' wx:for-item="item">
+        <text class='word'>{{item.word_mean}}</text>
+        <text class='nature'>{{item.part}}</text>
+        <text class='meaning' wx:for='{{item.means}}' wx:for-item="means">{{means}}          </text>
+      </view>
+    </view>
+  <view class='result-list' wx:if='{{isShowAssociate}}'>
+    <view class='result-item' wx:for="{{associateData}}">
+        <span class="search-word">
+          {{item.k}}
+        </span>
+        <span class='search-result'>
+          {{item.v}}
+        </span>
+    </view>
+  </view>
+</view>
